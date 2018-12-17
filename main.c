@@ -1,39 +1,32 @@
-#include "bloom.h"
-#include "bloom.c"
-#include <stdio.h>
 
-unsigned int djb2(const void *_str) {
-	const char *str = _str;
-	unsigned int hash = 5381;
-	char c;
-	while ((c = *str++)) {
-		hash = ((hash << 5) + hash) + c;
-	}
-	return hash;
+#define FNV_PRIME_32 16777619
+#define FNV_OFFSET_32 2166136261U
+
+
+uint32_t FNV32(uint64_t n1,size_t len)
+{ 
+
+uint32_t A[len],i,k;
+uint64_t j;
+
+uint32_t hash = FNV_OFFSET_32;
+
+for(i=len;i>0;i--)
+{
+
+j=n1%10;
+A[i]=j;
+n1=n1/10;
+
 }
 
-unsigned int jenkins(const void *_str) {
-	const char *key = _str;
-	unsigned int hash, i;
-	while (*key) {
-		hash += *key;
-		hash += (hash << 10);
-		hash ^= (hash >> 6);
-		key++;
-	}
-	hash += (hash << 3);
-	hash ^= (hash >> 11);
-	hash += (hash << 15);
-	return hash;
-}
+      for(k=1;k<=len;k++)
+      { 
+        hash = hash ^ (A[k]); // xor next byte into the bottom of the hash
+        hash = hash * FNV_PRIME_32; // Multiply by prime number found to work well
+      }
 
-int main() {
-	bloom_t bloom = bloom_create(8);
-	bloom_add_hash(bloom, djb2);
-	bloom_add_hash(bloom, jenkins);
-	printf("Should be 0: %d\n", bloom_test(bloom, "hello world"));
-	bloom_add(bloom, "hello world");
-	printf("Should be 1: %d\n", bloom_test(bloom, "hello world"));
-	printf("Should (probably) be 0: %d\n", bloom_test(bloom, "world hello"));
-	return 0;
-}
+    return hash;
+} 
+
+
