@@ -1,1 +1,43 @@
-Bloom Filter Implimentation in C
+#IMPLEMENTATION OF BLOOM FILTER FOR FAST AND EFFICIENT AADHAR VALIDATION
+The project appellation propounds the application of bloom filter, which is a simple space-efficient probabilistic data structure that hashes elements using k-independent hash functions, to check whether the element is present in the relative dataset or not. Explicitly, when the number of entries in a database increases dramatically, checking with the database becomes too expensive. In situations like these, we can implement bloom filter for fast and efficient validation of data.   
+
+##COMPATIBLE WITH
+Ubuntu (gcc compiler).
+
+##files:
+1)main.c
+2)murmur.c
+3)fnv.c
+
+
+##HOW TO COMPILE AND RUN.
+##Commands
+
+$ gcc main.c -lm
+$ ./a.out
+
+
+
+
+##MURMUR3
+MurmurHash is a non-cryptographic hash function suitable for general hash-based lookup.
+The current version is MurmurHash3, which yields a 32-bit or 128-bit hash value. When using 128-bits, the x86 and x64 versions do not produce the same values, as the algorithms are optimized for their respective platforms.
+
+##FNV1a
+Fowler–Noll–Vo is a non-cryptographic hash function created by Glenn Fowler, Landon Curt Noll, and Kiem-Phong Vo.
+The current versions are FNV-1 and FNV-1a, which supply a means of creating non-zero FNV offset basis. FNV currently comes in 32-, 64-, 128-, 256-, 512-, and 1024-bit flavors. For pure FNV implementations, this is determined solely by the availability of FNV primes for the desired bit length; however, the FNV webpage discusses methods of adapting one of the above versions to a smaller length that may or may not be a power of two.[
+
+FNV-1a hash
+The FNV-1a hash differs from the FNV-1 hash by only the order in which the multiply and XOR is performed:[8][10]
+
+   hash = FNV_offset_basis
+   for each byte_of_data to be hashed
+   	hash = hash XOR byte_of_data
+   	hash = hash × FNV_prime
+   return hash.
+
+
+
+
+
+
